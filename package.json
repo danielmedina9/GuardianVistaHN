@@ -1,0 +1,54 @@
+{
+  "name": "guardianvistahn",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@based/pretty-date": "^1.0.4",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.8",
+    "@material-ui/lab": "^4.0.0-alpha.61",
+    "@mui/icons-material": "^5.15.7",
+    "@mui/material": "^5.15.12",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.14",
+    "@mui/x-charts": "^6.19.3",
+    "firebase": "^10.8.0",
+    "firebase-admin": "^12.0.0",
+    "mapbox-gl": "^3.1.2",
+    "powerbi-client-react": "1.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-google-charts": "^4.0.1",
+    "react-router-dom": "^6.22.0",
+    "react-scripts": "^5.0.1",
+    "redux": "^5.0.1",
+    "styled-components": "^6.1.8",
+    "uid": "^2.0.2",
+    "zustand": "^4.5.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^9.1.3",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^5.90.3"
+  }
+}

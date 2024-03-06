@@ -1,0 +1,37 @@
+
+
+TO DO LIST
+
+BLOG
+> Blog Size -> Size of the Card of each Blog
+> Blog Author -> First and surename of the user who created the Blog
+> Blog Extendpage -> Multiple Blogs divided by Row per page
+> Blog comments -> Other users can comment to other Blog
+
+Admin
+> Can Manage Blogs, Edit and Delete Blog Users
+> Admin communicate by chat with users
+
+APPLY SYSLOG
+> Assign coordiantes to map
+> Records of Cyberatacks, Phishing and Malware.
+
+New proyecto
+
+Forti Analyzer old data.
+
+
+Faucet es un sitio web que regala pequenas cantidades.
+pull down menu 
+Global 
+Filter by country
+Resumen.
+Version subscripcion 
+Monitore Gratuito.
+Especificaciones en Honduras. 
+ftp
+SYSLOG
+
+
+
+

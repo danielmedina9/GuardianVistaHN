@@ -1,0 +1,26 @@
+
+.h2 {
+ font-weight: 600;
+}
+
+.svg_icons {
+    transform: scale(1.7);
+    margin-left: 0.07cm;
+  }
+
+  .avatar{
+    vertical-align: middle;
+    width: 60ch ; 
+    height: 60ch;
+    border-radius: 20%;
+    border-width: 2px;
+    border-color: grey;
+    border-style: outset;
+  }
+
+  .background_LogReg{
+  background-image: url('https://img.freepik.com/free-photo/ultra-detailed-nebula-abstract-wallpaper-4_1562-749.jpg');
+  width: 100%;
+  height: auto;
+  }
+
