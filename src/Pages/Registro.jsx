@@ -11,11 +11,10 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SecurityIcon from "@mui/icons-material/Security";
-import { auth } from "../firebase-config";
+import { auth, db } from "../firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../firebase-config";
 import { useAuth } from "../Context/AuthContext";
 import "../App.css";
 
@@ -37,8 +36,6 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function Registro() {
@@ -51,10 +48,6 @@ export default function Registro() {
   const [errorMessage, setErrorMessage] = useState([]);
   const navigate = useNavigate();
 
-  // const handleChange = ({target:{name,value}}) =>{
-  //   setEmail({...user,[name]:value})
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
@@ -64,7 +57,6 @@ export default function Registro() {
           name: name,
           surname: surname,
           emai: email,
-          password: password,
           empresa: empresa,
         });
         localStorage.setItem("userid", userid);
@@ -80,151 +72,149 @@ export default function Registro() {
   };
 
   return (
-    <>
-      <Box
-        sx={{ display: "Flex" }}
-        style={{
-          backgroundImage:
-            "url(https://img.freepik.com/free-photo/ultra-detailed-nebula-abstract-wallpaper-4_1562-749.jpg)",
-        }}
-      >
-        {/*<Sidebar/>*/}
-        <Box component="main" sx={{ flexGrow: 1, p: 9 }}>
-          <ThemeProvider theme={defaultTheme}>
-            <Grid container component="main">
-              <CssBaseline />
-              <Grid
-                item
-                xs={false}
-                sm={4}
-                md={7}
+    <Box
+      sx={{ display: "Flex" }}
+      style={{
+        backgroundImage:
+          "url(https://img.freepik.com/free-photo/ultra-detailed-nebula-abstract-wallpaper-4_1562-749.jpg)",
+      }}
+    >
+      {/*<Sidebar/>*/}
+      <Box component="main" sx={{ flexGrow: 1, p: 9 }}>
+        <ThemeProvider theme={defaultTheme}>
+          <Grid container component="main">
+            <CssBaseline />
+            <Grid
+              item
+              xs={false}
+              sm={4}
+              md={7}
+              sx={{
+                backgroundImage:
+                  "url(https://thelogisticsworld.com/wp-content/uploads/2023/01/ilustracion-de-seguridad-cibernetica.jpg)",
+                backgroundRepeat: "no-repeat",
+                backgroundColor: (t) =>
+                  t.palette.mode === "light"
+                    ? t.palette.grey[50]
+                    : t.palette.grey[900],
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            />
+            <Grid
+              item
+              xs={12}
+              sm={8}
+              md={5}
+              component={Paper}
+              elevation={6}
+              square
+            >
+              <Box
                 sx={{
-                  backgroundImage:
-                    "url(https://thelogisticsworld.com/wp-content/uploads/2023/01/ilustracion-de-seguridad-cibernetica.jpg)",
-                  backgroundRepeat: "no-repeat",
-                  backgroundColor: (t) =>
-                    t.palette.mode === "light"
-                      ? t.palette.grey[50]
-                      : t.palette.grey[900],
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
+                  my: 14,
+                  mx: 4,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                 }}
-              />
-              <Grid
-                item
-                xs={12}
-                sm={8}
-                md={5}
-                component={Paper}
-                elevation={6}
-                square
               >
+                <Typography component="h1" variant="h4">
+                  GUARDIAN VISTA HN {<SecurityIcon className="svg_icons" />}{" "}
+                </Typography>
+                <Avatar sx={{ m: 2, bgcolor: "info.light" }}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  Crear una nueva cuenta
+                </Typography>
                 <Box
-                  sx={{
-                    my: 14,
-                    mx: 4,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
+                  component="form"
+                  noValidate
+                  onSubmit={handleSubmit}
+                  sx={{ mt: 3 }}
                 >
-                  <Typography component="h1" variant="h4">
-                    GUARDIAN VISTA HN {<SecurityIcon className="svg_icons" />}{" "}
-                  </Typography>
-                  <Avatar sx={{ m: 2, bgcolor: "info.light" }}>
-                    <LockOutlinedIcon />
-                  </Avatar>
-                  <Typography component="h1" variant="h5">
-                    Crear una nueva cuenta
-                  </Typography>
-                  <Box
-                    component="form"
-                    noValidate
-                    onSubmit={handleSubmit}
-                    sx={{ mt: 3 }}
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        autoComplete="given-name"
+                        name="firstName"
+                        required
+                        fullWidth
+                        id="firstName"
+                        label="Nombre"
+                        autoFocus
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="lastName"
+                        label="Apellido"
+                        name="lastName"
+                        autoComplete="family-name"
+                        onChange={(e) => setsurname(e.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="email"
+                        label="Correo electrónico"
+                        name="email"
+                        autoComplete="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="empresa"
+                        label="Empresa"
+                        name="empresa"
+                        autoComplete="user"
+                        onChange={(e) => setEmpresa(e.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        name="password"
+                        label="Contraseña"
+                        type="password"
+                        id="password"
+                        autoComplete="new-password"
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
                   >
-                    <Grid container spacing={2}>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          autoComplete="given-name"
-                          name="firstName"
-                          required
-                          fullWidth
-                          id="firstName"
-                          label="Nombre"
-                          autoFocus
-                          onChange={(e) => setName(e.target.value)}
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          required
-                          fullWidth
-                          id="lastName"
-                          label="Apellido"
-                          name="lastName"
-                          autoComplete="family-name"
-                          onChange={(e) => setsurname(e.target.value)}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          id="email"
-                          label="Correo electrónico"
-                          name="email"
-                          autoComplete="email"
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          id="empresa"
-                          label="Empresa"
-                          name="empresa"
-                          autoComplete="user"
-                          onChange={(e) => setEmpresa(e.target.value)}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          fullWidth
-                          name="password"
-                          label="Contraseña"
-                          type="password"
-                          id="password"
-                          autoComplete="new-password"
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
-                      </Grid>
+                    Registrarse
+                  </Button>
+                  <Grid container justifyContent="flex-end">
+                    <Grid item>
+                      <Link href="/Login" variant="body2">
+                        Ya tienes una cuenta? Inicia sesión
+                      </Link>
                     </Grid>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                    >
-                      Registrarse
-                    </Button>
-                    <Grid container justifyContent="flex-end">
-                      <Grid item>
-                        <Link href="/Login" variant="body2">
-                          Ya tienes una cuenta? Inicia sesión
-                        </Link>
-                      </Grid>
-                    </Grid>
-                    <Copyright sx={{ mt: 5 }} />
-                  </Box>
+                  </Grid>
+                  <Copyright sx={{ mt: 5 }} />
                 </Box>
-              </Grid>
+              </Box>
             </Grid>
-          </ThemeProvider>
-        </Box>
+          </Grid>
+        </ThemeProvider>
       </Box>
-    </>
+    </Box>
   );
 }

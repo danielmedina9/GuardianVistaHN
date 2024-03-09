@@ -12,6 +12,7 @@ import Registro from './Pages/Registro'
 import Perfil from './Pages/Perfil'
 import { AuthProvider } from './Context/AuthContext'
 import { ProtectAuth } from './Context/ProtectAuth'
+import ResetPassword from './Pages/ResetPassword'
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <AuthProvider>
         <Routes>
           <Route path='/Login' element={<Login />} />
+          <Route path='/Resetpw' element={<ResetPassword />} />
           <Route path='/Registro' element={<Registro />} />
           <Route
             path='/'

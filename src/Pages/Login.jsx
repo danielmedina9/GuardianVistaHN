@@ -12,11 +12,12 @@ import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SecurityIcon from "@mui/icons-material/Security";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { auth, db } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import "../App.css";
 import GoogleIcon from "@mui/icons-material/Google";
+import { doc, setDoc } from "firebase/firestore";
 
 function Copyright(props) {
   return (
@@ -35,8 +36,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
@@ -71,8 +70,23 @@ export default function Login() {
 
   const handleGoogleSignin = async () => {
     try {
-      await loginWithGoogle();
-      navigate("/");
+      loginWithGoogle().then(async (userCrdential) => {
+        console.log("userCrdential ===", userCrdential);
+        localStorage.setItem("userid", userCrdential.user.uid);
+        // save user data to firestore User collection
+        const displayName = userCrdential.user.displayName;
+
+        await setDoc(doc(db, "User", userCrdential.user.uid), {
+          name: displayName.split(" ")[0],
+          surname: displayName.split(" ")[1],
+          email: userCrdential.user.email,
+          photoURL: userCrdential.user.photoURL,
+          uid: userCrdential.user.uid,
+          empresa: "",
+        });
+
+        navigate("/");
+      });
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -159,7 +173,7 @@ export default function Login() {
                   </Button>
                   <Grid container>
                     <Grid item xs>
-                      <Link href="" variant="body2">
+                      <Link href="/Resetpw" variant="body2">
                         Olvidaste tu contraseña?
                       </Link>
                     </Grid>
