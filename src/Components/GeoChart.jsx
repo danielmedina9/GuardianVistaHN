@@ -8,8 +8,8 @@ export const data = [["Country", "Counter Of Attacks"]];
 
 export const options = {
   colorAxis: { colors: ["#151B54", "black", "#4169E1"] },
- // backgroundColor: "#81d4fa",
-  datalessRegionColor: "#8c8c8c",
+ //backgroundColor: "#81d4fa",
+  datalessRegionColor: "#7e7e7e",
   defaultColor: "#f5f5f5",
 };
 

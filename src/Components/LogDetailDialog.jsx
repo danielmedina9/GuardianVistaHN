@@ -29,7 +29,7 @@ export default function LogDetailDialog({
           {countryDetails.length > 0 &&
             countryDetails.map((log, index) => (
               <Typography key={index} variant="body2" gutterBottom>
-                <strong>ID</strong>: {log.id} <strong>Severity</strong>:{" "}
+                {/*<strong>ID</strong>: {log.id}*/} <strong>Severity</strong>:{" "}
                 {log.severity} <strong>Type</strong>: {log.type}{" "}
                 <strong>Subtype</strong>: {log.subtype}
               </Typography>

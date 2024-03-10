@@ -13,8 +13,48 @@ import Perfil from './Pages/Perfil'
 import { AuthProvider } from './Context/AuthContext'
 import { ProtectAuth } from './Context/ProtectAuth'
 import ResetPassword from './Pages/ResetPassword'
+import ChatBot from 'react-simple-chatbot';
+import { ThemeProvider } from 'styled-components';
 
 export default function App() {
+
+  const theme = {
+    background: '#ffffff',
+    fontFamily: 'Arial',
+    headerBgColor: '#4169E1',
+    headerFontColor: '#fff',
+    headerFontSize: '15px',
+    botBubbleColor: '#4169E1',
+    botFontColor: '#fff',
+    userBubbleColor: '#fff',
+    userFontColor: '#4a4a4a',
+  };
+
+  const steps = [
+    {
+      id: '1',
+      message: '¿Estas interesado en ciberseguridad?',
+      trigger: '2',
+    },
+    {
+      id: '2',
+      options: [
+        { value: 1, label: 'Si', trigger: '4' },
+        { value: 2, label: 'No', trigger:'3' },
+      ],
+    },
+    {
+      id: '3',
+      message: 'Respuesta incorrecta',
+      trigger: '2',
+    },
+    {
+      id:'4',
+      message:'https://www.kapa7.com/',
+      end: true
+    }
+  ];
+
   return (
     <div>
       <AuthProvider>
@@ -87,7 +127,13 @@ export default function App() {
             }
           />
         </Routes>
+       {/*<ProtectAuth>
+          <ThemeProvider theme={theme}>
+            <ChatBot steps={steps} floating={true} headerTitle={"Kapa Bot"}/>;
+          </ThemeProvider>
+          </ProtectAuth>*/}
       </AuthProvider>
+
     </div>
   )
 }

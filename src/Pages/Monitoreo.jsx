@@ -61,7 +61,7 @@ export default function Monitoreo() {
           acc[countryName] += 1;
         } else {
           acc[countryName] = 1;
-          // set unique country name
+          // establecer un nombre de país único
           setPaises((prev) => [...new Set([...prev, countryName])]);
         }
 
@@ -80,14 +80,14 @@ export default function Monitoreo() {
 
     console.log("groupedData ===", groupedData);
 
-    // convert it to array for geo map data
+    // convertir en un arreglo para asignar la data al geo map
     const dataArray = Object.entries(groupedData).map(([country, count]) => [
       country,
       count,
     ]);
 
-    // add header array at the beginning of the array
-    dataArray.unshift(["Pais", "Counter Of Attacks"]);
+    // agregar una arreglo de encabezado al comienzo de la arreglo
+    dataArray.unshift(["Pais", "Ataques"]);
     console.log("attackData ===", dataArray);
     setAttckLogs(dataArray);
     setFilterAttckLogs(dataArray);
@@ -99,25 +99,25 @@ export default function Monitoreo() {
 
     switch (fecha) {
       case "1 semana": {
-        // get 1 week ago
+        // 1 semana
         const oneWeekAgo = Math.floor(Date.now() / 1000) - 604800;
         url = `${process.env.REACT_APP_PAPERTRAIL_API}?min_time=${oneWeekAgo}`;
         break;
       }
       case "1 mes": {
-        // 1 month ago
+        // 1 mes
         const oneMonthAgo = Math.floor(Date.now() / 1000) - 2592000;
         url = `${process.env.REACT_APP_PAPERTRAIL_API}?min_time=${oneMonthAgo}`;
         break;
       }
       case "3 meses": {
-        // 3 months ago
+        // 3 meses
         const threeMonthsAgo = Math.floor(Date.now() / 1000) - 7776000;
         url = `${process.env.REACT_APP_PAPERTRAIL_API}?min_time=${threeMonthsAgo}`;
         break;
       }
       case "1 año": {
-        // 1 year ago
+        // 1 año
         const oneYearAgo = Math.floor(Date.now() / 1000) - 31536000;
         url = `${process.env.REACT_APP_PAPERTRAIL_API}?min_time=${oneYearAgo}`;
         break;
@@ -150,7 +150,7 @@ export default function Monitoreo() {
     setFilterAttckLogs([]);
     if (val) {
       const filtered = attckLogs.filter((log) => log[0] === val);
-      filtered.unshift(["Country", "Counter Of Attacks"]);
+      filtered.unshift(["Pais", "Ataques"]);
       setFilterAttckLogs(filtered);
     } else {
       setFilterAttckLogs(attckLogs);

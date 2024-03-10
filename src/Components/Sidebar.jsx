@@ -233,7 +233,7 @@ export default function Sidebar() {
             </ListItem>
           </List>
           <Divider />
-          <Box m={4} pt={38}>
+          <Box m={4} pt={37}>
             <a href="https://www.kapa7.com/" target="_blank">
               <img src={KapaLogo} alt="" />
             </a>
