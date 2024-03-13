@@ -41,14 +41,21 @@ export default function Monitoreo() {
     let newLogDetails = [...logDetails];
     const groupedData = events.reduce((acc, attack) => {
       let countryName = "";
+      let severity = "";
+
       const dstCountry = attack.message.match(/dstcountry="([^"]+)"/);
       const srcCountry = attack.message.match(/srccountry="([^"]+)"/);
+      const severityStr = attack.message.match(/severity="([^"]+)"/) || "";
 
       if (srcCountry) {
         countryName = srcCountry[1];
         if (srcCountry[1] === "Reserved") {
           countryName = dstCountry[1];
         }
+      }
+
+      if (severityStr) {
+        severity = severityStr[1];
       }
 
       if (countryName) {
@@ -61,13 +68,13 @@ export default function Monitoreo() {
           acc[countryName] += 1;
         } else {
           acc[countryName] = 1;
-          // establecer un nombre de país único
+          // set unique country name
           setPaises((prev) => [...new Set([...prev, countryName])]);
         }
 
         newLogDetails.push({
           id: attack.id,
-          severity: attack.severity,
+          severity: severity,
           type: typeStr,
           subtype: subtypeStr,
           country: countryName,
@@ -80,14 +87,14 @@ export default function Monitoreo() {
 
     console.log("groupedData ===", groupedData);
 
-    // convertir en un arreglo para asignar la data al geo map
+    // convert it to array for geo map data
     const dataArray = Object.entries(groupedData).map(([country, count]) => [
       country,
       count,
     ]);
 
-    // agregar una arreglo de encabezado al comienzo de la arreglo
-    dataArray.unshift(["Pais", "Ataques"]);
+    // add header array at the beginning of the array
+    dataArray.unshift(["Pais", "Counter Of Attacks"]);
     console.log("attackData ===", dataArray);
     setAttckLogs(dataArray);
     setFilterAttckLogs(dataArray);
@@ -99,25 +106,25 @@ export default function Monitoreo() {
 
     switch (fecha) {
       case "1 semana": {
-        // 1 semana
+        // get 1 week ago
         const oneWeekAgo = Math.floor(Date.now() / 1000) - 604800;
         url = `${process.env.REACT_APP_PAPERTRAIL_API}?min_time=${oneWeekAgo}`;
         break;
       }
       case "1 mes": {
-        // 1 mes
+        // 1 month ago
         const oneMonthAgo = Math.floor(Date.now() / 1000) - 2592000;
         url = `${process.env.REACT_APP_PAPERTRAIL_API}?min_time=${oneMonthAgo}`;
         break;
       }
       case "3 meses": {
-        // 3 meses
+        // 3 months ago
         const threeMonthsAgo = Math.floor(Date.now() / 1000) - 7776000;
         url = `${process.env.REACT_APP_PAPERTRAIL_API}?min_time=${threeMonthsAgo}`;
         break;
       }
       case "1 año": {
-        // 1 año
+        // 1 year ago
         const oneYearAgo = Math.floor(Date.now() / 1000) - 31536000;
         url = `${process.env.REACT_APP_PAPERTRAIL_API}?min_time=${oneYearAgo}`;
         break;
@@ -150,7 +157,7 @@ export default function Monitoreo() {
     setFilterAttckLogs([]);
     if (val) {
       const filtered = attckLogs.filter((log) => log[0] === val);
-      filtered.unshift(["Pais", "Ataques"]);
+      filtered.unshift(["Country", "Counter Of Attacks"]);
       setFilterAttckLogs(filtered);
     } else {
       setFilterAttckLogs(attckLogs);
