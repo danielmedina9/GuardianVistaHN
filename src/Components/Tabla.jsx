@@ -47,20 +47,19 @@ export default function Tabla() {
           <TableHead>
             <TableRow style={{ backgroundColor: "#232b2b" }}>
               <TableCell>
-                <Typography sx={{ color: "white" }}>Fecha</Typography>
+                <Typography sx={{ color: "white" }}>Fecha</Typography> {/*received_at*/}
               </TableCell>
               <TableCell>
-                {" "}
-                <Typography sx={{ color: "white" }}>Ataque</Typography>
+                <Typography sx={{ color: "white" }}>Ataque</Typography> {/*attack*/}
               </TableCell>
               <TableCell>
-                <Typography sx={{ color: "white" }}>Ciudad</Typography>
+                <Typography sx={{ color: "white" }}>Pais</Typography> {/*srccountry*/}
               </TableCell>
               <TableCell>
-                <Typography sx={{ color: "white" }}>Tipo</Typography>
+                <Typography sx={{ color: "white" }}>Tipo</Typography> {/*subtype*/}
               </TableCell>
               <TableCell>
-                <Typography sx={{ color: "white" }}>Porcentaje</Typography>
+                <Typography sx={{ color: "white" }}>Gravedad</Typography> {/*Severity*/}
               </TableCell>
             </TableRow>
           </TableHead>

@@ -135,7 +135,7 @@ export default function Sidebar() {
                 <ListItemText primary="Ciberataques" />
               </ListItemButton>
             </ListItem>
-            {/* Estadisticas de Malware */}
+            {/* Estadisticas de Malware 
             <ListItem
               disablePadding
               onClick={() => {
@@ -148,8 +148,8 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="Malware" />
               </ListItemButton>
-            </ListItem>
-            {/* Estadisticas de Phishing */}
+            </ListItem>*/}
+            {/* Estadisticas de Phishing 
             <ListItem
               disablePadding
               onClick={() => {
@@ -163,9 +163,9 @@ export default function Sidebar() {
                 <ListItemText primary="Phishing" />
               </ListItemButton>
             </ListItem>
-          </List>
+          </List>          
+          <List>*/}
           <Divider />
-          <List>
             {/*Portal Social*/}
             <ListItem
               disablePadding

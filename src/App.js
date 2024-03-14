@@ -30,33 +30,38 @@ export default function App() {
     userFontColor: '#4a4a4a',
   };
 
-  const steps = [
-    {
-      id: '1',
-      message: '¿Estas interesado en ciberseguridad?',
-      trigger: '2',
-    },
-    {
-      id: '2',
-      options: [
-        { value: 1, label: 'Si', trigger: '4' },
-        { value: 2, label: 'No', trigger:'3' },
-      ],
-    },
-    {
-      id: '3',
-      message: 'Respuesta incorrecta',
-      trigger: '2',
-    },
-    {
-      id:'4',
-      message:'https://www.kapa7.com/',
-      end: true
-    }
-  ];
+  
 
   return (
     <div>
+      <AuthProvider>
+        <ProtectAuth>
+          <ThemeProvider theme={theme}>
+            <React.StrictMode>            
+            <ChatBot steps={[
+              {
+                id: '1',
+                message: 'Necesitas informacio acerca Grupo Kapa 7?',
+                trigger: '2',
+              },
+              {
+                id: '2',
+                options: [
+                  { value: 1, label: 'Grupo Kapa 7', trigger: '3' },
+                ]
+              },
+              {
+                id: '3',
+                message: 'Esta funcionando trigger 3',
+                end: true,
+              }
+            ]
+
+            } floating={true} headerTitle={"Kapa Bot"} />;
+            </React.StrictMode>
+          </ThemeProvider>
+        </ProtectAuth>
+      </AuthProvider>
       <AuthProvider>
         <Routes>
           <Route path='/Login' element={<Login />} />
@@ -127,13 +132,7 @@ export default function App() {
             }
           />
         </Routes>
-       {/*<ProtectAuth>
-          <ThemeProvider theme={theme}>
-            <ChatBot steps={steps} floating={true} headerTitle={"Kapa Bot"}/>;
-          </ThemeProvider>
-          </ProtectAuth>*/}
       </AuthProvider>
-
     </div>
   )
 }

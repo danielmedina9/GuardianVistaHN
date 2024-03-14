@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import GeoChart from "../Components/GeoChart";
 import Grid from "@mui/material/Grid";
 import Autocomplete from "@mui/material/Autocomplete";
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import IconButton from "@mui/material/IconButton";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -223,14 +223,21 @@ export default function Monitoreo() {
                 )}
               />
             </Grid>
-            <Grid sx={{ mx: 0.5 }}>
-              <IconButton
+            <Grid sx={{ mx: 0.5 , my:1}}>
+              {/*<IconButton
                 size="large"
                 variant="contained"
                 onClick={() => setRefresh(!refresh)}
               >
                 <RefreshIcon fontSize="large" />
-              </IconButton>
+                </IconButton>*/}
+              <Button
+                variant="contained"
+                color="success"
+                onClick={() => setRefresh(!refresh)}
+              >
+                Actualizar
+              </Button>
             </Grid>
           </Grid>
           <Box sx={{ my: 5 }}>

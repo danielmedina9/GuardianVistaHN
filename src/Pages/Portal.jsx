@@ -107,7 +107,7 @@ export default function Portal() {
             </Grid>
             <Container>
               <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={3} sx={{ mx: -19 }}>
+                <Grid container spacing={3} sx={{ mx: -23}}>
                   {blogs.length > 0 &&
                     blogs.map((blog) => (
                       <Grid md={{ minHeight: 500, height: 500 }} item xs={4}>
