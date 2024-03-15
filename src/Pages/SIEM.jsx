@@ -43,7 +43,7 @@ const tiers = [
   },
 ];
 
-export default function subscrption() {
+export default function SIEM() {
   return (
     <>
       <Box sx={{ display: "Flex" }}>

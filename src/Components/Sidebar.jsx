@@ -180,18 +180,18 @@ export default function Sidebar() {
                 <ListItemText primary="Portal" />
               </ListItemButton>
             </ListItem>
-            {/*Chat con Profesionales de Ciberseguridad Ciber*/}
+            {/*SIEM Ciberseguridad */}
             <ListItem
               disablePadding
               onClick={() => {
-                navigate("/Subscrption");
+                navigate("/SIEM");
               }}
             >
               <ListItemButton>
                 <ListItemIcon>
                   <CardMembershipIcon />
                 </ListItemIcon>
-                <ListItemText primary="Suscripción" />
+                <ListItemText primary="SIEM" />
               </ListItemButton>
             </ListItem>
             {/*Perfil*/}
@@ -205,7 +205,7 @@ export default function Sidebar() {
                 <ListItemIcon>
                   <AccountBoxIcon />
                 </ListItemIcon>
-                <ListItemText primary="Perfil" />
+                <ListItemText primary="Perfil" /> 
               </ListItemButton>
             </ListItem>
             {/*Configuración*/}
@@ -233,7 +233,7 @@ export default function Sidebar() {
             </ListItem>
           </List>
           <Divider />
-          <Box m={4} pt={37}>
+          <Box m={5} pt={40.5}>
             <a href="https://www.kapa7.com/" target="_blank">
               <img src={KapaLogo} alt="" />
             </a>

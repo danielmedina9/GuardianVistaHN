@@ -5,8 +5,6 @@ import GeoChart from "../Components/GeoChart";
 import Grid from "@mui/material/Grid";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Button, TextField } from "@mui/material";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import IconButton from "@mui/material/IconButton";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Monitoreo() {
@@ -223,7 +221,7 @@ export default function Monitoreo() {
                 )}
               />
             </Grid>
-            <Grid sx={{ mx: 0.5 , my:1}}>
+            <Grid sx={{ mx: 0.5, my: 1 }}>
               {/*<IconButton
                 size="large"
                 variant="contained"

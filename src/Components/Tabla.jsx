@@ -8,74 +8,47 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
-
-const rows = [
-  createData(
-    0,
-    "16 Mar, 2019",
-    "Windows Powerpoint XP",
-    "Tupelo, MS",
-    "Inyección sql",
-    "30%"
-  ),
-  createData(1, "16 Mar, 2019", "Firefox expt", "London, UK", "XSS", "60%"),
-  createData(2, "16 Mar, 2019", " Scholz 74", "Boston, MA", "XSS", "25%"),
-  createData(3, "16 Mar, 2019", "Nel exploit", "Gary, IN", "Troyano", "5%"),
-  createData(
-    4,
-    "15 Mar, 2019",
-    "Verbaden linux",
-    "Long Branch, NJ",
-    "Inyección sql",
-    "30%"
-  ),
-];
-
-function preventDefault(event) {
-  event.preventDefault();
-}
-
-export default function Tabla() {
+export default function Tabla(props) {
   return (
-    <React.Fragment>
-      <TableContainer component={Paper}>
-        <Table size="Large" aria-label="simple table">
-          <TableHead>
-            <TableRow style={{ backgroundColor: "#232b2b" }}>
-              <TableCell>
-                <Typography sx={{ color: "white" }}>Fecha</Typography> {/*received_at*/}
-              </TableCell>
-              <TableCell>
-                <Typography sx={{ color: "white" }}>Ataque</Typography> {/*attack*/}
-              </TableCell>
-              <TableCell>
-                <Typography sx={{ color: "white" }}>Pais</Typography> {/*srccountry*/}
-              </TableCell>
-              <TableCell>
-                <Typography sx={{ color: "white" }}>Tipo</Typography> {/*subtype*/}
-              </TableCell>
-              <TableCell>
-                <Typography sx={{ color: "white" }}>Gravedad</Typography> {/*Severity*/}
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
+    <TableContainer component={Paper}>
+      <Table size="Large" aria-label="simple table">
+        <TableHead>
+          <TableRow style={{ backgroundColor: "#232b2b" }}>
+            <TableCell>
+              <Typography sx={{ color: "white" }}>Fecha</Typography>{" "}
+              {/*received_at*/}
+            </TableCell>
+            <TableCell>
+              <Typography sx={{ color: "white" }}>Ataque</Typography>{" "}
+              {/*attack*/}
+            </TableCell>
+            <TableCell>
+              <Typography sx={{ color: "white" }}>Pais</Typography>{" "}
+              {/*srccountry*/}
+            </TableCell>
+            <TableCell>
+              <Typography sx={{ color: "white" }}>Tipo</Typography>{" "}
+              {/*subtype*/}
+            </TableCell>
+            <TableCell>
+              <Typography sx={{ color: "white" }}>Gravedad</Typography>{" "}
+              {/*Severity*/}
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {props.logDetails.length > 0 &&
+            props.logDetails.map((row) => (
               <TableRow key={row.id}>
-                <TableCell>{row.date}</TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.shipTo}</TableCell>
-                <TableCell>{row.paymentMethod}</TableCell>
-                <TableCell>{row.amount}</TableCell>
+                <TableCell>{row.received_at}</TableCell>
+                <TableCell>{row.ataque}</TableCell>
+                <TableCell>{row.pais}</TableCell>
+                <TableCell>{row.subtype}</TableCell>
+                <TableCell>{row.severity}</TableCell>
               </TableRow>
             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </React.Fragment>
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }

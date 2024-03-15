@@ -4,7 +4,7 @@ import Monitoreo from './Pages/Monitoreo'
 import Registro_ataque from './Pages/Registro_ataque'
 import Registro_malware from './Pages/Registro_malware'
 import Registro_phishing from './Pages/Registro_phising'
-import Subscrption from './Pages/Subscrption'
+import SIEM from './Pages/SIEM'
 import Ajustes from './Pages/Ajustes'
 import Login from './Pages/Login'
 import Portal from './Pages/Portal'
@@ -30,38 +30,8 @@ export default function App() {
     userFontColor: '#4a4a4a',
   };
 
-  
-
   return (
     <div>
-      <AuthProvider>
-        <ProtectAuth>
-          <ThemeProvider theme={theme}>
-            <React.StrictMode>            
-            <ChatBot steps={[
-              {
-                id: '1',
-                message: 'Necesitas informacio acerca Grupo Kapa 7?',
-                trigger: '2',
-              },
-              {
-                id: '2',
-                options: [
-                  { value: 1, label: 'Grupo Kapa 7', trigger: '3' },
-                ]
-              },
-              {
-                id: '3',
-                message: 'Esta funcionando trigger 3',
-                end: true,
-              }
-            ]
-
-            } floating={true} headerTitle={"Kapa Bot"} />;
-            </React.StrictMode>
-          </ThemeProvider>
-        </ProtectAuth>
-      </AuthProvider>
       <AuthProvider>
         <Routes>
           <Route path='/Login' element={<Login />} />
@@ -71,6 +41,30 @@ export default function App() {
             path='/'
             element={
               <ProtectAuth>
+                <ThemeProvider theme={theme}>
+                  <React.StrictMode>
+                    <ChatBot steps={[
+                      {
+                        id: '1',
+                        message: 'Necesitas informacio acerca Grupo Kapa 7?',
+                        trigger: '2',
+                      },
+                      {
+                        id: '2',
+                        options: [
+                          { value: 1, label: 'Grupo Kapa 7', trigger: '3' },
+                        ]
+                      },
+                      {
+                        id: '3',
+                        message: 'Esta funcionando trigger 3',
+                        end: true,
+                      }
+                    ]
+
+                    } floating={true} headerTitle={"Kapa Bot"} />;
+                  </React.StrictMode>
+                </ThemeProvider>
                 <Monitoreo />
               </ProtectAuth>
             }
@@ -124,10 +118,10 @@ export default function App() {
             }
           />
           <Route
-            path='/Subscrption'
+            path='/SIEM'
             element={
               <ProtectAuth>
-                <Subscrption />
+                <SIEM />
               </ProtectAuth>
             }
           />
