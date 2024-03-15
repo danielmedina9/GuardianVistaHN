@@ -7,6 +7,7 @@ import TableRow from "@mui/material/TableRow";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import { prettyDate } from "@based/pretty-date";
 
 export default function Tabla(props) {
   return (
@@ -40,7 +41,7 @@ export default function Tabla(props) {
           {props.logDetails.length > 0 &&
             props.logDetails.map((row) => (
               <TableRow key={row.id}>
-                <TableCell>{row.received_at}</TableCell>
+                <TableCell>{prettyDate(row.received_at,'date-time')}</TableCell>
                 <TableCell>{row.ataque}</TableCell>
                 <TableCell>{row.pais}</TableCell>
                 <TableCell>{row.subtype}</TableCell>

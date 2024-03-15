@@ -29,19 +29,7 @@ export default function App() {
     userBubbleColor: '#fff',
     userFontColor: '#4a4a4a',
   };
-
-  return (
-    <div>
-      <AuthProvider>
-        <Routes>
-          <Route path='/Login' element={<Login />} />
-          <Route path='/Resetpw' element={<ResetPassword />} />
-          <Route path='/Registro' element={<Registro />} />
-          <Route
-            path='/'
-            element={
-              <ProtectAuth>
-                <ThemeProvider theme={theme}>
+ /*    <ThemeProvider theme={theme}>
                   <React.StrictMode>
                     <ChatBot steps={[
                       {
@@ -64,7 +52,18 @@ export default function App() {
 
                     } floating={true} headerTitle={"Kapa Bot"} />;
                   </React.StrictMode>
-                </ThemeProvider>
+                </ThemeProvider> */
+  return (
+    <div>
+      <AuthProvider>
+        <Routes>
+          <Route path='/Login' element={<Login />} />
+          <Route path='/Resetpw' element={<ResetPassword />} />
+          <Route path='/Registro' element={<Registro />} />
+          <Route
+            path='/'
+            element={
+              <ProtectAuth>
                 <Monitoreo />
               </ProtectAuth>
             }
