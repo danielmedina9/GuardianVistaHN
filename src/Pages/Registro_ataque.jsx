@@ -25,7 +25,7 @@ export default function Registro_ataque() {
     ""
   );
 
-  const parseAttackLogs = (events) => {
+  const parseAttackLogs = (events, update) => {
     const regex = /dstcountry="([^"]+)"|srccountry="([^"]+)"|severity="([^"]+)"|subtype="([^"]+)"|attack="([^"]+)"/g;
     let newLogDetails = [];
     let countries = {};
@@ -67,7 +67,7 @@ export default function Registro_ataque() {
     });
 
     let maxAttacks = 0;
-    let countryStr = "";
+    let countryStr = countryWithMoreAttacks;
     for (const [key, value] of Object.entries(countries)) {
       if (value > maxAttacks) {
         maxAttacks = value;
@@ -76,14 +76,21 @@ export default function Registro_ataque() {
     }
     setCountryWithMoreAttacks(countryStr);
 
-    setLogDetails(newLogDetails);
+    const existingIds = new Set(logDetails.map((log) => log.id));
+
+    const uniqueNewLogDetails = newLogDetails.filter(
+      (log) => !existingIds.has(log.id)
+    );
+
+    update
+      ? setLogDetails([...logDetails, ...uniqueNewLogDetails])
+      : setLogDetails(uniqueNewLogDetails);
+
     console.log("logDetails ===", logDetails);
   };
 
-  const fetchAttckLogs = async () => {
+  const fetchAttckLogs = async (url, update) => {
     setLoading(true);
-    const oneWeekAgo = Math.floor(Date.now() / 1000) - 604800;
-    const url = `${process.env.REACT_APP_PAPERTRAIL_API}?min_time=${oneWeekAgo}`;
 
     fetch(url, requestOptions)
       .then((response) => response.json())
@@ -91,7 +98,7 @@ export default function Registro_ataque() {
         if (result?.events?.length > 0) {
           console.log("event len ===", result.events?.length);
           setLoading(false);
-          parseAttackLogs(result.events);
+          parseAttackLogs(result.events, update);
         } else {
           setLoading(false);
           setLogDetails([]);
@@ -106,12 +113,14 @@ export default function Registro_ataque() {
   };
 
   const handleUpdate = () => {
-    setLogDetails([]);
-    fetchAttckLogs();
+    const url = `${process.env.REACT_APP_PAPERTRAIL_API}`;
+    fetchAttckLogs(url, true);
   };
 
   useEffect(() => {
-    fetchAttckLogs();
+    const oneWeekAgo = Math.floor(Date.now() / 1000) - 604800;
+    const url = `${process.env.REACT_APP_PAPERTRAIL_API}?min_time=${oneWeekAgo}`;
+    fetchAttckLogs(url, false);
   }, []);
 
   return (

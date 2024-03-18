@@ -7,7 +7,7 @@ import LogDetailDialog from "./LogDetailDialog";
 export const data = [["Country", "Counter Of Attacks"]];
 
 export const options = {
-  colorAxis: { colors: ["#151B54", "black", "#4169E1"] },
+  colorAxis: { colors: ["#DAA520", "#FFA500", "#79031D" ] },
  //backgroundColor: "#81d4fa",
   datalessRegionColor: "#7e7e7e",
   defaultColor: "#f5f5f5",
@@ -41,6 +41,8 @@ export default function GeoChart({ attckLogs, logDetails, pais }) {
       {attckLogs.length > 0 ? (
         <Box>
           <Chart
+           width="100%"
+           height="700px"
             chartEvents={[
               {
                 eventName: "select",

@@ -222,13 +222,6 @@ export default function Monitoreo() {
               />
             </Grid>
             <Grid sx={{ mx: 0.5, my: 1 }}>
-              {/*<IconButton
-                size="large"
-                variant="contained"
-                onClick={() => setRefresh(!refresh)}
-              >
-                <RefreshIcon fontSize="large" />
-                </IconButton>*/}
               <Button
                 variant="contained"
                 color="success"
@@ -238,7 +231,7 @@ export default function Monitoreo() {
               </Button>
             </Grid>
           </Grid>
-          <Box sx={{ my: 5 }}>
+          <Box sx={{ my: 2 }}>
             {loading && <CircularProgress style={{ marginLeft: "50%" }} />}
             <GeoChart
               attckLogs={filterAttckLogs}

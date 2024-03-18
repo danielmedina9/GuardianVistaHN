@@ -1,12 +1,17 @@
 import * as React from "react";
+import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import AppBar from "@mui/material/AppBar";
+import MuiDrawer from "@mui/material/Drawer";
+import MuiAppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
+import MenuIcon from "@mui/icons-material/Menu";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -14,8 +19,6 @@ import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import CoronavirusIcon from "@mui/icons-material/Coronavirus";
-import GppBadIcon from "@mui/icons-material/GppBad";
-import PhishingIcon from "@mui/icons-material/Phishing";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import CardMembershipIcon from "@mui/icons-material/CardMembership";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
@@ -32,12 +35,87 @@ import { useState, useEffect } from "react";
 
 const drawerWidth = 240;
 
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: "hidden",
+});
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: "hidden",
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+}));
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
+
 export default function Sidebar() {
   const navigate = useNavigate();
-  const { user } = useAuth();
   const { logout } = useAuth();
+
   const [name, setName] = useState("");
   const [surname, setsurname] = useState("");
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -60,29 +138,32 @@ export default function Sidebar() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
+
       <AppBar
         position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        style={{ backgroundColor: "#232b2b" }}
+        open={open}
         enableColorOnDark
+        style={{ backgroundColor: "#232b2b" }}
       >
         <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+              marginRight: 4,
+              ...(open && { display: "none" }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography variant="h6" noWrap component="div">
             Guardian Vista HN
             {<SecurityIcon sx={{ my: -0.5, mx: 0.2 }} />}
           </Typography>
-          <Box sx={{ mx: 2 }}>
-            {/*  <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>*/}
-          </Box>
-          <Typography variant="h6">
+
+          <Typography sx={{mx:2}} variant="h6">
             Bienvenido{" "}
             <b>
               {name}&nbsp;{surname}
@@ -93,19 +174,19 @@ export default function Sidebar() {
           </Box>
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-      >
-        <Toolbar />
-        <Box sx={{ overflow: "auto" }}>
+
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "rtl" ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <Box >
           <List component="h4">
             {/* Monitoreo de Registros */}
             <ListItem
@@ -134,38 +215,8 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="Ciberataques" />
               </ListItemButton>
-            </ListItem>
-            {/* Estadisticas de Malware 
-            <ListItem
-              disablePadding
-              onClick={() => {
-                navigate("/Malware");
-              }}
-            >
-              <ListItemButton>
-                <ListItemIcon>
-                  <GppBadIcon />
-                </ListItemIcon>
-                <ListItemText primary="Malware" />
-              </ListItemButton>
-            </ListItem>*/}
-            {/* Estadisticas de Phishing 
-            <ListItem
-              disablePadding
-              onClick={() => {
-                navigate("/Phishing");
-              }}
-            >
-              <ListItemButton>
-                <ListItemIcon>
-                  <PhishingIcon />
-                </ListItemIcon>
-                <ListItemText primary="Phishing" />
-              </ListItemButton>
-            </ListItem>
-          </List>          
-          <List>*/}
-          <Divider />
+            </ListItem>           
+            <Divider />
             {/*Portal Social*/}
             <ListItem
               disablePadding
@@ -205,9 +256,10 @@ export default function Sidebar() {
                 <ListItemIcon>
                   <AccountBoxIcon />
                 </ListItemIcon>
-                <ListItemText primary="Perfil" /> 
+                <ListItemText primary="Perfil" />
               </ListItemButton>
             </ListItem>
+            <Divider />
             {/*Configuración*/}
             <ListItem
               disablePadding
@@ -231,13 +283,12 @@ export default function Sidebar() {
                 <ListItemText primary="LogOut" />
               </ListItemButton>
             </ListItem>
-          </List>
-          <Divider />
-          <Box m={5} pt={40.5}>
+          </List>          
+         {/*} <Box m={5} pt={40.5}>
             <a href="https://www.kapa7.com/" target="_blank">
               <img src={KapaLogo} alt="" />
             </a>
-          </Box>
+            </Box>*/}
         </Box>
       </Drawer>
     </Box>

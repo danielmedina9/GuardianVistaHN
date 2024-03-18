@@ -107,10 +107,10 @@ export default function Portal() {
             </Grid>
             <Container>
               <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={3} sx={{ mx: -23}}>
+                <Grid container spacing={4} sx={{ mx: -34}}>
                   {blogs.length > 0 &&
                     blogs.map((blog) => (
-                      <Grid md={{ minHeight: 500, height: 500 }} item xs={4}>
+                      <Grid md={{ minHeight: 600, height: 600 }} item xs={3}>
                         <Card key={blog.id} variant="outlined">
                           <BlogCard blog={blog} />
                         </Card>

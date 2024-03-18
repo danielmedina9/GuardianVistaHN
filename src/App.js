@@ -10,49 +10,49 @@ import Login from './Pages/Login'
 import Portal from './Pages/Portal'
 import Registro from './Pages/Registro'
 import Perfil from './Pages/Perfil'
+import SIEM_platform from './Pages/SIEM_platform'
 import { AuthProvider } from './Context/AuthContext'
 import { ProtectAuth } from './Context/ProtectAuth'
 import ResetPassword from './Pages/ResetPassword'
-import ChatBot from 'react-simple-chatbot';
-import { ThemeProvider } from 'styled-components';
+
 
 export default function App() {
-
-  const theme = {
-    background: '#ffffff',
-    fontFamily: 'Arial',
-    headerBgColor: '#4169E1',
-    headerFontColor: '#fff',
-    headerFontSize: '15px',
-    botBubbleColor: '#4169E1',
-    botFontColor: '#fff',
-    userBubbleColor: '#fff',
-    userFontColor: '#4a4a4a',
-  };
- /*    <ThemeProvider theme={theme}>
-                  <React.StrictMode>
-                    <ChatBot steps={[
-                      {
-                        id: '1',
-                        message: 'Necesitas informacio acerca Grupo Kapa 7?',
-                        trigger: '2',
-                      },
-                      {
-                        id: '2',
-                        options: [
-                          { value: 1, label: 'Grupo Kapa 7', trigger: '3' },
-                        ]
-                      },
-                      {
-                        id: '3',
-                        message: 'Esta funcionando trigger 3',
-                        end: true,
-                      }
-                    ]
-
-                    } floating={true} headerTitle={"Kapa Bot"} />;
-                  </React.StrictMode>
-                </ThemeProvider> */
+  /*
+    const theme = {
+      background: '#ffffff',
+      fontFamily: 'Arial',
+      headerBgColor: '#4169E1',
+      headerFontColor: '#fff',
+      headerFontSize: '15px',
+      botBubbleColor: '#4169E1',
+      botFontColor: '#fff',
+      userBubbleColor: '#fff',
+      userFontColor: '#4a4a4a',
+    };
+       <ThemeProvider theme={theme}>
+                    <React.StrictMode>
+                      <ChatBot steps={[
+                        {
+                          id: '1',
+                          message: 'Necesitas informacio acerca Grupo Kapa 7?',
+                          trigger: '2',
+                        },
+                        {
+                          id: '2',
+                          options: [
+                            { value: 1, label: 'Grupo Kapa 7', trigger: '3' },
+                          ]
+                        },
+                        {
+                          id: '3',
+                          message: 'Esta funcionando trigger 3',
+                          end: true,
+                        }
+                      ]
+  
+                      } floating={true} headerTitle={"Kapa Bot"} />;
+                    </React.StrictMode>
+                  </ThemeProvider> */
   return (
     <div>
       <AuthProvider>
