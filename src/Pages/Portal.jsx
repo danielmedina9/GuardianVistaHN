@@ -56,8 +56,6 @@ export default function Portal() {
         <Modal
           open={open}
           onClose={handleClose}
-          //aria-labelledby="modal-modal-title"
-          //aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
             <Blog handleClose={handleClose} edit={false} />
@@ -68,10 +66,6 @@ export default function Portal() {
       <Box sx={{ display: "Flex" }}>
         <Sidebar />
         <Box component="main" sx={{ flexGrow: 1, p: 12 }}>
-          <Typography component="h1" variant="h4">
-            PORTAL BLOG CIBERSEGURIDAD
-          </Typography>
-
           <Box sx={{ my: 4 }}>
             <Grid container>
               <Grid>

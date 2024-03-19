@@ -48,6 +48,9 @@ const style = {
   boxShadow: 24,
   borderRadius: "16px",
 };
+ const cardsize ={
+  width: 10000,
+ };
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -157,8 +160,8 @@ export default function BlogCard(props) {
         </Dialog>
       </React.Fragment>
 
-      <React.Fragment>
-        <CardContent>
+      <React.Fragment >
+        <CardContent >
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             Author: {blog.data.author}
           </Typography>

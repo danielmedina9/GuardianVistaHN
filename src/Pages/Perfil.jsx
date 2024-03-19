@@ -40,10 +40,7 @@ export default function Perfil() {
     <Box sx={{ display: "Flex" }}>
       <Sidebar />
       <Box component="main" sx={{ flexGrow: 1, p: 12 }}>
-        <Typography component="h1" variant="h4">
-          MI PERFIL
-        </Typography>
-        <Grid container main sx={{ my: 7.5 }}>
+        <Grid container  sx={{ my: 7.5 }}>
           <Grid container>
             <Grid>
               <img
