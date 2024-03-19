@@ -56,6 +56,8 @@ export default function Portal() {
         <Modal
           open={open}
           onClose={handleClose}
+          //aria-labelledby="modal-modal-title"
+          //aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
             <Blog handleClose={handleClose} edit={false} />
@@ -66,6 +68,10 @@ export default function Portal() {
       <Box sx={{ display: "Flex" }}>
         <Sidebar />
         <Box component="main" sx={{ flexGrow: 1, p: 12 }}>
+          <Typography component="h1" variant="h4">
+            PORTAL BLOG CIBERSEGURIDAD
+          </Typography>
+
           <Box sx={{ my: 4 }}>
             <Grid container>
               <Grid>
@@ -99,20 +105,21 @@ export default function Portal() {
                 Agrega tu discusión acerca de Ciberseguridad.
               </Typography>
             </Grid>
-            <Container>
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={4} sx={{ mx: -34}}>
-                  {blogs.length > 0 &&
-                    blogs.map((blog) => (
-                      <Grid md={{ minHeight: 600, height: 600 }} item xs={3}>
-                        <Card key={blog.id} variant="outlined">
-                          <BlogCard blog={blog} />
-                        </Card>
-                      </Grid>
-                    ))}
-                </Grid>
-              </Box>
-            </Container>
+            <Grid container spacing={1}>
+              {blogs.length > 0 &&
+                blogs.map((blog) => (
+                  <Grid
+                    key={blog.id}
+                    md={{ minHeight: 600, height: 600 }}
+                    item
+                    xs={3}
+                  >
+                    <Card variant="outlined">
+                      <BlogCard blog={blog} />
+                    </Card>
+                  </Grid>
+                ))}
+            </Grid>
           </Box>
           {/*<img src={BajoConstruct} alt="" /> */}
         </Box>
