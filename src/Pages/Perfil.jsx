@@ -8,7 +8,9 @@ import { useEffect } from "react";
 import Card from "@mui/material/Card";
 import { Grid } from "@mui/material";
 import "../App.css";
-import { useAuth } from "../Context/AuthContext";
+import { useAuth} from "../Context/AuthContext";
+import { uploadImg } from "../Context/AuthContext";
+ 
 
 export default function Perfil() {
   const [email, setEmail] = useState("");
@@ -16,8 +18,11 @@ export default function Perfil() {
   const [surname, setsurname] = useState(""); // and surname
   const [empresa, setEmpresa] = useState("");
   const currentUser = useAuth();
-  const [photoURL, setPhotoURL] = useState("");
+  const [photoURL, setPhotoURL] = useState("https://cdn-icons-png.flaticon.com/512/6522/6522516.png");
+  const [photo, setPhoto] = useState(null);
+  const [loading, setLoading] = useState(false);
 
+  
   useEffect(() => {
     getDoc(doc(db, "User", localStorage.getItem("userid"))).then((docSnap) => {
       if (docSnap.exists()) {
@@ -28,13 +33,21 @@ export default function Perfil() {
       } else {
         console.log("No such document!");
       }
-      setPhotoURL(currentUser.setPhotoURL);
-    });
-  }, []);
+    })
+    if (currentUser?.photoURL) {
+      setPhotoURL(currentUser.photoURL);
+    }
+  }, [currentUser]);
 
-  function handleChange() {}
+  function handleChange(e) {
+    if (e.target.files[0]) {
+      setPhoto(e.target.files[0])
+    }
+  }
 
-  function handleClick() {}
+  function handleClick() {
+    uploadImg(photo, currentUser, setLoading);
+  }
 
   return (
     <Box sx={{ display: "Flex" }}>
@@ -44,9 +57,10 @@ export default function Perfil() {
           <Grid container>
             <Grid>
               <img
-                src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png"
+                src={photoURL}
                 alt="Avatar"
                 className="avatar"
+
               />
             </Grid>
             <Grid item xs={6} sx={{ mx: 6, my: 9 }}>
@@ -74,7 +88,7 @@ export default function Perfil() {
           </Grid>
           <Grid sx={{ my: 1, mx: 15 }}>
             <input color="secondary" type="file" onChange={handleChange} />
-            <button onClick={handleClick}>Upload</button>
+            <button disabled={loading || !photo} onClick={handleClick}>Upload</button>
           </Grid>
         </Grid>
       </Box>
