@@ -32,6 +32,8 @@ import { useAuth } from "../Context/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { useState, useEffect } from "react";
+import { Avatar } from "@mui/material";
+
 
 const drawerWidth = 240;
 
@@ -107,6 +109,10 @@ export default function Sidebar() {
   const [surname, setsurname] = useState("");
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [photoURL, setPhotoURL] = useState(
+    "https://cdn-icons-png.flaticon.com/512/6522/6522516.png"
+  );
+  const currentUser = useAuth();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -124,6 +130,13 @@ export default function Sidebar() {
     }
   };
 
+
+  const getAvatarImg = async () =>{
+    if (currentUser?.user?.photoURL) {
+      setPhotoURL(currentUser.user.photoURL);
+    }
+  }
+
   useEffect(() => {
     getDoc(doc(db, "User", localStorage.getItem("userid"))).then((docSnap) => {
       if (docSnap.exists()) {
@@ -132,7 +145,8 @@ export default function Sidebar() {
       } else {
         console.log("No such document!");
       }
-    });
+    })
+    getAvatarImg();
   });
 
   return (
@@ -162,8 +176,8 @@ export default function Sidebar() {
             Guardian Vista HN
             {<SecurityIcon sx={{ my: -0.5, mx: 0.2 }} />}
           </Typography>
-
-          <Typography sx={{mx:2}} variant="h6">
+           <Avatar sx={{mx:2}}alt="Avatar" src={photoURL}/> 
+          <Typography  variant="h6">
             Bienvenido{" "}
             <b>
               {name}&nbsp;{surname}

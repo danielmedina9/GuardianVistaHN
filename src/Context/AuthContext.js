@@ -10,7 +10,7 @@ import {
   updateProfile,
 } from 'firebase/auth'
 import { auth } from '../firebase-config'
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 
 const authContext = createContext();
 const storage = getStorage();
@@ -22,17 +22,23 @@ export const useAuth = () => {
 }
 
 export async function uploadImg(file, currentUser, setLoading) {
-  const fileRef = ref(storage, currentUser.uid + '.png');
+  if (currentUser?.user?.uid) {
+    const fileRef = ref(storage, currentUser.user.uid + '/' + file.name);
 
-  setLoading(true);
-  
-  const snapshot = await uploadBytes(fileRef, file);
-  const photoURL = await getDownloadURL(fileRef);
+    setLoading(true);
 
-  updateProfile(currentUser, {photoURL});
-  
-  setLoading(false);
-  alert("Uploaded file!");
+    const snapshot = await uploadBytesResumable(fileRef, file);
+    console.log("snapshot ===", snapshot)
+    const photoURL = await getDownloadURL(fileRef);
+
+    updateProfile(currentUser?.user, { photoURL });
+    setLoading(false);
+    alert("Uploaded file!");
+
+    return photoURL;
+  } else {
+    return '';
+  }
 }
 
 export function AuthProvider({ children }) {
@@ -56,7 +62,7 @@ export function AuthProvider({ children }) {
 
   const resetPassword = async email => sendPasswordResetEmail(auth, email)
 
-  
+
 
   useEffect(() => {
     const unsubuscribe = onAuthStateChanged(auth, currentUser => {
@@ -67,7 +73,7 @@ export function AuthProvider({ children }) {
     return () => unsubuscribe()
   }, [])
 
-  
+
   return (
     <authContext.Provider
       value={{

@@ -44,8 +44,8 @@ export default function Registro() {
   const [name, setName] = useState("");
   const [surname, setsurname] = useState("");
   const [empresa, setEmpresa] = useState("");
-  const { signup } = useAuth();
-  const [errorMessage, setErrorMessage] = useState([]);
+  //const { signup } = useAuth();
+  //const [errorMessage, setErrorMessage] = useState([]);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {

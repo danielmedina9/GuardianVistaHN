@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
 import LogDetailDialog from "./LogDetailDialog";
 
-export const data = [["Country", "Counter Of Attacks"]];
+export const data = [["Pais", "Pais de Ataques"]];
 
 export const options = {
   colorAxis: { colors: ["#DAA520", "#FFA500", "#79031D" ] },

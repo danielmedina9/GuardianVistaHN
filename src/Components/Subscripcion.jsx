@@ -13,6 +13,7 @@ import Grid from "@mui/material/Grid";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import SIEM_platform from "../Pages/SIEM_platform";
+import Link from "@mui/material/Link";
 
 const tiers = [
   {
@@ -171,12 +172,9 @@ export default function Subscripcion() {
                           fullWidth
                           variant={tier.buttonVariant}
                           component="a"
-                          onClick={() => {     
-                            <SIEM_platform/>                      
-                          }}
                           target="_blank"
                         >
-                          {tier.buttonText}
+                          <Link href={tier.buttonText === 'Subscribirse' ? '/subscribe' : '/'} underline="none" color="inherit">{tier.buttonText}</Link>
                         </Button>
                       </CardActions>
                     </Card>

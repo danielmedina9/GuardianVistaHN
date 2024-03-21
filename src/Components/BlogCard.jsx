@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CardContent from "@mui/material/CardContent";
 import LongText from "../Components/LongText";
 import { prettyDate } from "@based/pretty-date";
@@ -15,6 +15,7 @@ import {
   Modal,
   Box,
   Dialog,
+  Avatar,
 } from "@mui/material";
 import {
   AddCommentOutlined,
@@ -35,6 +36,7 @@ import {
 import { auth, db } from "../firebase-config";
 import Blog from "./Blog";
 import BlogDelDialog from "./BlogDelDialog";
+import { useAuth } from "../Context/AuthContext";
 
 const style = {
   position: "absolute",
@@ -67,6 +69,10 @@ export default function BlogCard(props) {
   const [user, setUser] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
+  const [photoURL, setPhotoURL] = useState(
+    "https://cdn-icons-png.flaticon.com/512/6522/6522516.png"
+  );
+  const currentUser = useAuth();
 
   const uid = auth.currentUser.uid;
   const { blog } = props;
@@ -89,6 +95,12 @@ export default function BlogCard(props) {
     }
   };
 
+  const getAvatarImg = async () =>{
+    if (currentUser?.user?.photoURL) {
+      setPhotoURL(currentUser.user.photoURL);
+    }
+  }
+
   const getComments = () => {
     const q = query(
       collection(db, "Comments"),
@@ -110,6 +122,7 @@ export default function BlogCard(props) {
   React.useEffect(() => {
     getUserData();
     getComments();
+    getAvatarImg();
   }, []);
 
   const handleExpandClick = () => {
@@ -225,6 +238,7 @@ export default function BlogCard(props) {
                       marginTop: "5px",
                     }}
                   >
+                   {/*<Avatar alt="Avatar"  src={photoURL}/>*/}
                     <Typography variant="body" color="text.secondary">
                       {prettyDate(
                         d.data.created.toDate().getTime(),

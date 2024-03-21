@@ -56,8 +56,8 @@ export default function Portal() {
         <Modal
           open={open}
           onClose={handleClose}
-          //aria-labelledby="modal-modal-title"
-          //aria-describedby="modal-modal-description"
+        //aria-labelledby="modal-modal-title"
+        //aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
             <Blog handleClose={handleClose} edit={false} />
@@ -68,37 +68,25 @@ export default function Portal() {
       <Box sx={{ display: "Flex" }}>
         <Sidebar />
         <Box component="main" sx={{ flexGrow: 1, p: 12 }}>
-          <Typography component="h1" variant="h4">
-            PORTAL BLOG CIBERSEGURIDAD
-          </Typography>
-
-          <Box sx={{ my: 4 }}>
+          <Grid container main >
+            <Grid item>
+              <Typography component="h1" variant="h4">
+                PORTAL BLOG CIBERSEGURIDAD
+              </Typography>
+            </Grid>
+            <Grid sx={{ mx: 4 }} item >
+              <Button
+                variant="contained"
+                endIcon={<AddCircleIcon />}
+                onClick={handleOpen}
+              >
+                {" "}
+                Crear Blog
+              </Button>
+            </Grid>
+          </Grid>
+          <Box sx={{ my: 2 }}>
             <Grid container>
-              <Grid>
-                <FormControl sx={{ width: "135ch" }} variant="outlined">
-                  <OutlinedInput
-                    endAdornment={
-                      <InputAdornment position="end">
-                        {<SearchIcon />}
-                      </InputAdornment>
-                    }
-                    aria-describedby="outlined-weight-helper-text"
-                    inputProps={{
-                      "aria-label": "weight",
-                    }}
-                  />
-                </FormControl>
-              </Grid>
-              <Grid sx={{ m: 1.5 }}>
-                <Button
-                  variant="contained"
-                  endIcon={<AddCircleIcon />}
-                  onClick={handleOpen}
-                >
-                  {" "}
-                  Crear Blog
-                </Button>
-              </Grid>
             </Grid>
             <Grid sx={{ my: 2 }}>
               <Typography component="h1" variant="h5">

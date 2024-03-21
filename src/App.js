@@ -70,6 +70,14 @@ export default function App() {
               </ProtectAuth>
             }
           />
+          <Route
+            path='/subscribe'
+            element={
+              <ProtectAuth>
+                <SIEM_platform />
+              </ProtectAuth>
+            }
+          />
         </Routes>
       </AuthProvider>
     </div>
