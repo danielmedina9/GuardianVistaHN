@@ -23,7 +23,7 @@ export default function Perfil() {
   );
   const [photo, setPhoto] = useState(null);
   const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(false);
+  
 
   useEffect(() => {
     getDoc(doc(db, "User", localStorage.getItem("userid"))).then((docSnap) => {
@@ -41,17 +41,7 @@ export default function Perfil() {
     }
   }, [currentUser]);
 
-  function handleChange(e) {
-    if (e.target.files[0]) {
-      setPhoto(e.target.files[0]);
-    }
-  }
 
-  function handleClick() {
-    uploadImg(photo, currentUser, setLoading).then((url) => {
-      setPhotoURL(url);
-    });
-  }
 
   useEffect(() => {
     if (currentUser?.user?.uid) {
@@ -70,44 +60,47 @@ export default function Perfil() {
   }, [currentUser]);
 
   return (
-    <Box sx={{ display: "Flex" }}>
+    <Box sx={{ display: "Flex" }} style={{
+      backgroundImage:
+        "url(https://img.freepik.com/vector-gratis/fondo-futurista-degradado-concepto-conexion_23-2149110797.jpg?w=1380&t=st=1711055495~exp=1711056095~hmac=cee3d889592cce480f9edf9f3abac9e255120c0210a454c4bb75c7eeba24e9b9)",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center center",
+        backgroundSize: "cover",
+        backgroundAttachment: "fixed",
+    }}>
       <Sidebar />
-      <Box component="main" sx={{ flexGrow: 1, p: 12 }}>
+      <Box  component="main" sx={{ flexGrow: 1, p: 12 }}>
         <Grid container sx={{ my: 20 }}  >
-          <Grid item sx={{ mx: 8 }} >
+          <Grid item sx={{ mx: 8, my:4}} >
             <Avatar
               alt="Avatar"
               src={photoURL}
               sx={{ width: 320, height: 320 }}
-            />
-            <Grid sx={{ mt: 7 }}>
-              <input color="secondary" type="file" onChange={handleChange} />
-              <button disabled={loading || !photo} onClick={handleClick}>
-                Upload
-              </button>
-            </Grid>
+            />            
           </Grid>
           <Grid item sx={{ mx: 4 }}>
-            <Card>
-              <Typography component="h1" variant="h4" sx={{ my: 4, mx: 3 }}>
+            <Box sx={{border:4,borderRadius: '8px' }}> 
+            <Card style={{backgroundColor:"#232b2b"}}>
+              <Typography  color="white" component="h1" variant="h4" sx={{ my: 4, mx: 3 }}>
                 Nombre: <b>{name}</b>
               </Typography>
-              <Typography component="h1" variant="h4" sx={{ my: 4, mx: 3 }}>
+              <Typography color="white"  component="h1" variant="h4" sx={{ my: 4, mx: 3 }}>
                 Apellido: <b>{surName}</b>
               </Typography>
-              <Typography component="h1" variant="h4" sx={{ my: 4, mx: 3 }}>
+              <Typography  color="white" component="h1" variant="h4" sx={{ my: 4, mx: 3 }}>
                 Correo electrónico: <b>{email}</b>
               </Typography>
-              <Typography component="h1" variant="h4" sx={{ my: 4, mx: 3 }}>
+              <Typography color="white"  component="h1" variant="h4" sx={{ my: 4, mx: 3 }}>
                 Empresa: <b>{empresa}</b>
               </Typography>
-              <Typography component="h1" variant="h4" sx={{ my: 4, mx: 3 }}>
+              <Typography color="white"  component="h1" variant="h4" sx={{ my: 4, mx: 3 }}>
                 Blogs : <b>{blogs.length}</b>
               </Typography>
               {/* <Typography component="h2" variant="h5">
                     <b> Comentarios:</b> 2
                   </Typography>*/}
             </Card>
+            </Box>
           </Grid>
         </Grid>
       </Box>

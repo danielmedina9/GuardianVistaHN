@@ -14,6 +14,10 @@ import {
   getDocs,
   getDoc,
 } from "firebase/firestore";
+import { useAuth, uploadImg } from "../Context/AuthContext";
+import Avatar from "@mui/material/Avatar";
+
+
 
 export default function Ajustes() {
   const [name, setName] = useState("");
@@ -23,6 +27,14 @@ export default function Ajustes() {
   //const [password, setPassword] = useState('');
   const uid = auth.currentUser.uid;
   const [error, setError] = useState("");
+  const [photoURL, setPhotoURL] = useState(
+    "https://cdn-icons-png.flaticon.com/512/6522/6522516.png"
+  );
+  const [photo, setPhoto] = useState(null);
+  const currentUser = useAuth();
+  const [loading, setLoading] = useState(false);
+
+  
 
   const getUsers = async () => {
     const data = await getDocs(collection(db, "User"));
@@ -52,6 +64,18 @@ export default function Ajustes() {
     location.reload();
   };
 
+  function handleChange(e) {
+    if (e.target.files[0]) {
+      setPhoto(e.target.files[0]);
+    }
+  }
+
+  function handleClick() {
+    uploadImg(photo, currentUser, setLoading).then((url) => {
+      setPhotoURL(url);
+    });
+  }
+
   useEffect(() => {
     getDoc(doc(db, "User", localStorage.getItem("userid"))).then((docSnap) => {
       if (docSnap.exists()) {
@@ -63,7 +87,11 @@ export default function Ajustes() {
         console.log("No such document!");
       }
     });
-  }, []);
+    if (currentUser?.user?.photoURL) {
+      setPhotoURL(currentUser.user.photoURL);
+    }
+  }, [currentUser]);
+
 
   return (
     <Box sx={{ display: "Flex" }}>
@@ -77,7 +105,22 @@ export default function Ajustes() {
             Editar tu informacion
           </Typography>
           <Grid container component="main" sx={{ my: 5 }}>
-            <Grid container component="section" sx={{ my: 2 }}>
+          <Grid item sx={{ mx: 8 }} >
+            <Avatar
+              alt="Avatar"
+              src={photoURL}
+              sx={{ width: 320, height: 320 }}
+            />
+            <Grid sx={{ mt: 7 }}>
+              <input color="secondary" type="file" onChange={handleChange} />
+              <button disabled={loading || !photo} onClick={handleClick}>
+                Upload
+              </button>
+            </Grid>
+            
+          </Grid>
+          <Grid item sx={{mx:4}}>
+            <Grid component="section" sx={{ my: 2 }}>
               <TextField
                 required
                 sx={{ width: "45ch" }}
@@ -129,6 +172,7 @@ export default function Ajustes() {
               >
                 Actualizar
               </Button>
+            </Grid>
             </Grid>
           </Grid>
         </Box>
