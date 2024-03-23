@@ -24,7 +24,7 @@ import CardMembershipIcon from "@mui/icons-material/CardMembership";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Flaghn from "../img/Honduras_flag.png";
-import KapaLogo from "../img/kapa7_logo.png";
+// import KapaLogo from "../img/kapa7_logo.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "../App.css";
 import SecurityIcon from "@mui/icons-material/Security";
@@ -33,7 +33,6 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { useState, useEffect } from "react";
 import { Avatar } from "@mui/material";
-
 
 const drawerWidth = 240;
 
@@ -67,17 +66,17 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
+  shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
+  transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -106,7 +105,7 @@ export default function Sidebar() {
   const { logout } = useAuth();
 
   const [name, setName] = useState("");
-  const [surname, setsurname] = useState("");
+  const [surName, setSurName] = useState("");
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [photoURL, setPhotoURL] = useState(
@@ -130,22 +129,21 @@ export default function Sidebar() {
     }
   };
 
-
-  const getAvatarImg = async () =>{
+  const getAvatarImg = async () => {
     if (currentUser?.user?.photoURL) {
       setPhotoURL(currentUser.user.photoURL);
     }
-  }
+  };
 
   useEffect(() => {
     getDoc(doc(db, "User", localStorage.getItem("userid"))).then((docSnap) => {
       if (docSnap.exists()) {
         setName(docSnap.data().name);
-        setsurname(docSnap.data().surname);
+        setSurName(docSnap.data().surname);
       } else {
         console.log("No such document!");
       }
-    })
+    });
     getAvatarImg();
   });
 
@@ -176,11 +174,11 @@ export default function Sidebar() {
             Guardian Vista HN
             {<SecurityIcon sx={{ my: -0.5, mx: 0.2 }} />}
           </Typography>
-           <Avatar sx={{mx:2}}alt="Avatar" src={photoURL}/> 
-          <Typography  variant="h6">
+          <Avatar sx={{ mx: 2 }} alt="Avatar" src={photoURL} />
+          <Typography variant="h6">
             Bienvenido{" "}
             <b>
-              {name}&nbsp;{surname}
+              {name}&nbsp;{surName}
             </b>{" "}
           </Typography>
           <Box sx={{ mx: 2 }}>
@@ -200,7 +198,7 @@ export default function Sidebar() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <Box >
+        <Box>
           <List component="h4">
             {/* Monitoreo de Registros */}
             <ListItem
@@ -229,7 +227,7 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="Ciberataques" />
               </ListItemButton>
-            </ListItem>           
+            </ListItem>
             <Divider />
             {/*Portal Social*/}
             <ListItem
@@ -297,8 +295,8 @@ export default function Sidebar() {
                 <ListItemText primary="LogOut" />
               </ListItemButton>
             </ListItem>
-          </List>          
-         {/*} <Box m={5} pt={40.5}>
+          </List>
+          {/*} <Box m={5} pt={40.5}>
             <a href="https://www.kapa7.com/" target="_blank">
               <img src={KapaLogo} alt="" />
             </a>

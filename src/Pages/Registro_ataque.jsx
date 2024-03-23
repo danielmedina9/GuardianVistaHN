@@ -6,7 +6,7 @@ import Tabla from "../Components/Tabla";
 import { Button, Grid } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
-export default function Registro_ataque() {
+export default function RegistroAtaque() {
   let myHeaders = new Headers();
   myHeaders.append(
     "X-Papertrail-Token",

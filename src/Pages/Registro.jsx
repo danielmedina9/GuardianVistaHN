@@ -14,8 +14,7 @@ import SecurityIcon from "@mui/icons-material/Security";
 import { auth, db } from "../firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { doc, setDoc } from "firebase/firestore";
-import { useAuth } from "../Context/AuthContext";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
 import "../App.css";
 
 function Copyright(props) {
@@ -42,10 +41,10 @@ export default function Registro() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [surname, setsurname] = useState("");
+  const [surName, setSurName] = useState("");
   const [empresa, setEmpresa] = useState("");
-  //const { signup } = useAuth();
-  //const [errorMessage, setErrorMessage] = useState([]);
+  // const { signup } = useAuth();
+  // const [errorMessage, setErrorMessage] = useState([]);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -55,9 +54,15 @@ export default function Registro() {
         const userid = response.user.uid;
         await setDoc(doc(db, "User", userid), {
           name: name,
-          surname: surname,
+          surname: surName,
           emai: email,
+          photoURL: "",
+          uid: userid,
           empresa: empresa,
+          subscribe: false,
+          createdDateTime: Timestamp.now(),
+          updatedDateTime: Timestamp.now(),
+          subscribeDateTime: Timestamp.now(),
         });
         localStorage.setItem("userid", userid);
         navigate("/");
@@ -155,7 +160,7 @@ export default function Registro() {
                         label="Apellido"
                         name="lastName"
                         autoComplete="family-name"
-                        onChange={(e) => setsurname(e.target.value)}
+                        onChange={(e) => setSurName(e.target.value)}
                       />
                     </Grid>
                     <Grid item xs={12}>

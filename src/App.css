@@ -22,3 +22,7 @@
   width: 100%;
   height: auto;
 }
+
+.css-1402ce4-MuiGrid-root {
+  width: calc(100% + 420px);
+}

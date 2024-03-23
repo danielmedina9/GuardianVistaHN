@@ -1,21 +1,21 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Monitoreo from './Pages/Monitoreo'
-import Registro_ataque from './Pages/Registro_ataque'
-import SIEM from './Pages/SIEM'
+import RegistroAtaque from './Pages/Registro_ataque'
+import Siem from './Pages/SIEM'
 import Ajustes from './Pages/Ajustes'
 import Login from './Pages/Login'
 import Portal from './Pages/Portal'
 import Registro from './Pages/Registro'
 import Perfil from './Pages/Perfil'
-import SIEM_platform from './Pages/SIEM_platform'
+import SiemPlatform from './Pages/SIEM_platform'
 import { AuthProvider } from './Context/AuthContext'
 import { ProtectAuth } from './Context/ProtectAuth'
 import ResetPassword from './Pages/ResetPassword'
 
-
 export default function App() {
-   return (
+
+  return (
     <div>
       <AuthProvider>
         <Routes>
@@ -34,10 +34,10 @@ export default function App() {
             path='/Ciberataques'
             element={
               <ProtectAuth>
-                <Registro_ataque />
+                <RegistroAtaque />
               </ProtectAuth>
             }
-          />        
+          />
           <Route
             path='/Portal'
             element={
@@ -66,15 +66,7 @@ export default function App() {
             path='/SIEM'
             element={
               <ProtectAuth>
-                <SIEM />
-              </ProtectAuth>
-            }
-          />
-          <Route
-            path='/subscribe'
-            element={
-              <ProtectAuth>
-                <SIEM_platform />
+                <Siem />
               </ProtectAuth>
             }
           />

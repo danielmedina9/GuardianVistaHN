@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import "../App.css";
 import GoogleIcon from "@mui/icons-material/Google";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
 
 function Copyright(props) {
   return (
@@ -83,6 +83,10 @@ export default function Login() {
           photoURL: userCrdential.user.photoURL,
           uid: userCrdential.user.uid,
           empresa: "",
+          subscribe: false,
+          createdDateTime: Timestamp.now(),
+          updatedDateTime: Timestamp.now(),
+          subscribeDateTime: Timestamp.now(),
         });
 
         navigate("/");
